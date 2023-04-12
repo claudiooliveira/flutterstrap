@@ -94,7 +94,7 @@ abstract class FlutterstrapTheme {
   // Text fields
 
   Color get textInputBorderColor;
-  Color get textInputFlutterstrapedBorderColor;
+  Color get textInputFocusedBorderColor;
   Color get textInputEnabledBorderColor;
   Color? get textInputFillColor;
   BorderRadius get textInputBorderRadius;

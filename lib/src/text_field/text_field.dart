@@ -151,7 +151,7 @@ class _FTextFieldState extends State<FTextField> {
         fontSize: _theme.labelTextSize,
         fontWeight: _theme.labelTextFontWeight,
         fontFamily: _theme.labelTextFontFamily,
-        color: _theme.textInputFlutterstrapedBorderColor,
+        color: _theme.textInputFocusedBorderColor,
       ),
       errorMaxLines: 5,
     );
@@ -164,7 +164,7 @@ class _FTextFieldState extends State<FTextField> {
           color = _theme.textInputErrorColor;
         } else if (states.contains(MaterialState.focused) ||
             states.contains(MaterialState.pressed)) {
-          color = _theme.textInputFlutterstrapedBorderColor;
+          color = _theme.textInputFocusedBorderColor;
         }
         return color;
       });
@@ -284,14 +284,14 @@ class _FTextFieldState extends State<FTextField> {
     Map<FTextFieldStyle, InputBorder> border = {
       FTextFieldStyle.outlined: OutlineInputBorder(
         borderSide: BorderSide(
-          color: _theme.textInputFlutterstrapedBorderColor,
+          color: _theme.textInputFocusedBorderColor,
           width: _theme.textInputBorderWidth,
         ),
         borderRadius: _theme.textInputBorderRadius,
       ),
       FTextFieldStyle.underlined: UnderlineInputBorder(
         borderSide: BorderSide(
-          color: _theme.textInputFlutterstrapedBorderColor,
+          color: _theme.textInputFocusedBorderColor,
           width: _theme.textInputBorderWidth,
         ),
       ),
