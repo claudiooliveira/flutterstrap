@@ -9,6 +9,7 @@ class PasswordValidator extends TextFieldValidator {
     String? minLengthError,
     String? emptyError,
     bool? mandatory = true,
+    String? error,
   }) : super(
           regex: regex ??
               RegExp(
@@ -18,5 +19,6 @@ class PasswordValidator extends TextFieldValidator {
           minLengthError: minLengthError,
           emptyError: emptyError,
           mandatory: mandatory,
+          error: error,
         );
 }

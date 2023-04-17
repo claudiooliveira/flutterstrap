@@ -5,10 +5,12 @@ class EmailValidator extends TextFieldValidator {
     String? validationError = 'Please enter a valid email.',
     String? emptyError,
     bool? mandatory = true,
+    String? error,
   }) : super(
           regex: RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$'),
           validationError: validationError,
           emptyError: emptyError,
           mandatory: mandatory,
+          error: error,
         );
 }
