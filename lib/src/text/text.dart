@@ -32,6 +32,7 @@ class FText extends StatelessWidget {
     this.color,
     this.textAlign,
     this.overflow,
+    this.maxLines,
   }) : super(key: key);
 
   final String text;
@@ -42,6 +43,7 @@ class FText extends StatelessWidget {
   final String? fontFamily;
   final TextAlign? textAlign;
   final TextOverflow? overflow;
+  final int? maxLines;
   late FlutterstrapTheme _theme;
 
   @override
@@ -52,6 +54,7 @@ class FText extends StatelessWidget {
       text,
       textAlign: textAlign,
       style: style,
+      maxLines: maxLines,
     );
   }
 
@@ -71,6 +74,7 @@ class FText extends StatelessWidget {
     Color? color,
     TextAlign? textAlign,
     TextOverflow? overflow,
+    int? maxLines,
   }) {
     return _FTextStyled(
       text,
@@ -80,6 +84,7 @@ class FText extends StatelessWidget {
       color: color,
       textAlign: textAlign,
       overflow: overflow,
+      maxLines: maxLines,
     );
   }
 
@@ -143,6 +148,7 @@ class _FTextStyled extends FText with _FStyledTextMixin {
     super.color,
     super.textAlign,
     super.overflow,
+    super.maxLines,
   });
 }
 
@@ -220,6 +226,7 @@ mixin _FStyledTextMixin on FText {
       text: TextSpan(
         children: textSpans(context),
       ),
+      maxLines: maxLines,
     );
   }
 }
