@@ -87,6 +87,7 @@ abstract class FlutterstrapTheme {
   String? get textFontFamily;
 
   Color get textStandardColor;
+  Color get textLightColor;
 
   //Icon
   Color? get defaultIconColor => textStandardColor;

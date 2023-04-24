@@ -31,6 +31,8 @@ class FTextField extends StatefulWidget {
     this.autovalidateMode,
     this.labelType = FTextFieldLabelType.floating,
     this.bottomLabel,
+    this.minLines,
+    this.maxLines = 1,
   }) : super(key: key);
 
   final String? initialValue;
@@ -52,6 +54,8 @@ class FTextField extends StatefulWidget {
   String? Function(String?)? validator;
   String? bottomLabel;
   AutovalidateMode? autovalidateMode;
+  int? minLines;
+  int maxLines;
 
   /// Use a [TextFieldValidator] to validate this field.
   /// -
@@ -87,6 +91,8 @@ class _FTextFieldState extends State<FTextField> {
           style: _textStyle,
           validator: _validator,
           autovalidateMode: widget.autovalidateMode,
+          minLines: widget.minLines,
+          maxLines: widget.maxLines,
         ),
         if (_showBottomLabel && widget.bottomLabel != null)
           const SizedBox(height: 4),
