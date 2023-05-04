@@ -33,6 +33,9 @@ class FTextField extends StatefulWidget {
     this.bottomLabel,
     this.minLines,
     this.maxLines = 1,
+    this.onTap,
+    this.enabled,
+    this.enableInteractiveSelection,
   }) : super(key: key);
 
   final String? initialValue;
@@ -56,6 +59,9 @@ class FTextField extends StatefulWidget {
   AutovalidateMode? autovalidateMode;
   int? minLines;
   int maxLines;
+  Function()? onTap;
+  bool? enabled;
+  bool? enableInteractiveSelection;
 
   /// Use a [TextFieldValidator] to validate this field.
   /// -
@@ -93,6 +99,9 @@ class _FTextFieldState extends State<FTextField> {
           autovalidateMode: widget.autovalidateMode,
           minLines: widget.minLines,
           maxLines: widget.maxLines,
+          onTap: widget.onTap,
+          enabled: widget.enabled,
+          enableInteractiveSelection: widget.enableInteractiveSelection,
         ),
         if (_showBottomLabel && widget.bottomLabel != null)
           const SizedBox(height: 4),
@@ -390,6 +399,9 @@ extension FPasswordTextField on FTextField {
       autovalidateMode: autovalidateMode,
       labelType: labelType,
       bottomLabel: bottomLabel,
+      onTap: onTap,
+      enabled: enabled,
+      enableInteractiveSelection: enableInteractiveSelection,
     );
   }
 }
