@@ -1,7 +1,8 @@
 name: flutterstrap
-description: A new Flutter package project.
+description: This package allows you to customize your app's design and make development even more convenient with widgets designed to make you more productive.
 version: 0.0.1
-homepage:
+homepage: https://github.com/claudiooliveira/flutterstrap
+repository: https://github.com/claudiooliveira/flutterstrap
 
 environment:
   sdk: ">=2.17.1 <3.0.0"

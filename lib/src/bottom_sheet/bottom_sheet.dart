@@ -75,6 +75,43 @@ class FBottomSheet {
       },
     );
   }
+
+  static Future showCustom<T>({
+    required BuildContext context,
+    required String title,
+    Widget? body,
+    TextAlign? messageTextAlign = TextAlign.center,
+    bool? closeButton = true,
+    bool? isDismissible,
+    String? primaryButtonText,
+    VoidCallback? onPrimaryButtonTap,
+    String? secondaryButtonText,
+    VoidCallback? onSecondaryButtonTap,
+    CrossAxisAlignment? crossAxisAlignment = CrossAxisAlignment.center,
+    MainAxisAlignment? mainAxisAlignment = MainAxisAlignment.center,
+    bool isScrollControlled = false,
+  }) {
+    return showModalBottomSheet<T>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isDismissible: isDismissible ?? true,
+      isScrollControlled: isScrollControlled,
+      builder: (context) {
+        return _FBottomSheetWidget<T>(
+          title: title,
+          body: body,
+          closeButton: closeButton,
+          primaryButtonText: primaryButtonText,
+          onPrimaryButtonTap: onPrimaryButtonTap,
+          secondaryButtonText: secondaryButtonText,
+          onSecondaryButtonTap: onSecondaryButtonTap,
+          crossAxisAlignment: crossAxisAlignment,
+          mainAxisAlignment: mainAxisAlignment,
+          messageTextAlign: messageTextAlign,
+        );
+      },
+    );
+  }
 }
 
 class _FBottomSheetWidget<T> extends StatelessWidget {

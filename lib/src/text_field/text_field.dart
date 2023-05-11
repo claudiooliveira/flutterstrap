@@ -150,7 +150,7 @@ class _FTextFieldState extends State<FTextField> {
       hintStyle: _hintTextStyle,
       labelText: !_hasFixedLabelAtTop ? widget.labelText : null,
       labelStyle: _labelTextStyle,
-      filled: widget.filled,
+      filled: _theme.textInputFillColor != null ? true : widget.filled,
       fillColor: widget.fillColor ?? _theme.textInputFillColor,
       border: _border,
       enabledBorder: _enabledBorder,
