@@ -27,10 +27,10 @@ class FCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = FlutterstrapTheme.of(context);
     return Card(
-      color: theme.cardColor ?? color,
-      shadowColor: theme.cardShadowColor ?? shadowColor,
-      surfaceTintColor: theme.cardSurfaceTintColor ?? surfaceTintColor,
-      elevation: theme.cardElevation ?? elevation,
+      color: color ?? theme.cardColor,
+      shadowColor: shadowColor ?? theme.cardShadowColor,
+      surfaceTintColor: surfaceTintColor ?? theme.cardSurfaceTintColor,
+      elevation: elevation ?? theme.cardElevation,
       borderOnForeground: borderOnForeground,
       margin: theme.cardMargin ?? margin,
       semanticContainer: semanticContainer,

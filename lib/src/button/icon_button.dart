@@ -14,6 +14,7 @@ class FIconButton extends StatelessWidget {
     this.size = FButtonSize.standard,
     this.disabled = false,
     this.loading = false,
+    this.elevation,
   }) : super(key: key);
 
   late FlutterstrapTheme _theme;
@@ -24,6 +25,7 @@ class FIconButton extends StatelessWidget {
   final IconData icon;
   final bool disabled;
   final bool loading;
+  final double? elevation;
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +115,7 @@ class FIconButton extends StatelessWidget {
       ),
     };
     ButtonStyle defStyle = ButtonStyle(
+      elevation: MaterialStateProperty.all<double?>(elevation),
       shape: shape[type] ??
           MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
