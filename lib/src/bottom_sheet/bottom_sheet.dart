@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterstrap/flutterstrap.dart';
 
 class FBottomSheet {
-  static Future show<T>({
+  static Future<T?> show<T>({
     required BuildContext context,
     required String title,
     String? message,
@@ -39,7 +39,7 @@ class FBottomSheet {
     );
   }
 
-  static Future showIconDialog<T>({
+  static Future<T?> showIconDialog<T>({
     required BuildContext context,
     required String title,
     required Widget icon,
@@ -53,11 +53,13 @@ class FBottomSheet {
     VoidCallback? onSecondaryButtonTap,
     CrossAxisAlignment? crossAxisAlignment = CrossAxisAlignment.center,
     MainAxisAlignment? mainAxisAlignment = MainAxisAlignment.start,
+    bool isScrollControlled = true,
   }) {
     return showModalBottomSheet<T>(
       context: context,
       backgroundColor: Colors.transparent,
       isDismissible: isDismissible ?? true,
+      isScrollControlled: isScrollControlled,
       builder: (context) {
         return _FBottomSheetIconDialogWidget<T>(
           title: title,
@@ -76,7 +78,7 @@ class FBottomSheet {
     );
   }
 
-  static Future showCustom<T>({
+  static Future<T?> showCustom<T>({
     required BuildContext context,
     required String title,
     Widget? body,
@@ -89,7 +91,7 @@ class FBottomSheet {
     VoidCallback? onSecondaryButtonTap,
     CrossAxisAlignment? crossAxisAlignment = CrossAxisAlignment.center,
     MainAxisAlignment? mainAxisAlignment = MainAxisAlignment.center,
-    bool isScrollControlled = false,
+    bool isScrollControlled = true,
   }) {
     return showModalBottomSheet<T>(
       context: context,
@@ -145,70 +147,76 @@ class _FBottomSheetWidget<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = FlutterstrapTheme.of(context);
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topRight: Radius.circular(Spacing.x4),
-        topLeft: Radius.circular(Spacing.x4),
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(Spacing.x4),
-            topLeft: Radius.circular(Spacing.x4),
-          ),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(Spacing.x4),
+          topLeft: Radius.circular(Spacing.x4),
         ),
-        padding: theme.bottomSheetPadding,
-        child: Column(
-          crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
-          mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  title,
-                  style: theme.bottomSheetTitleStyle,
-                ),
-                if (closeButton == true)
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: Icon(
-                      Icons.close_outlined,
-                      size: 22,
-                      color: theme.defaultIconColor,
-                    ),
-                  )
-              ],
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(Spacing.x4),
+              topLeft: Radius.circular(Spacing.x4),
             ),
-            const SizedBox(height: Spacing.x4),
-            if (message != null)
-              Text(
-                message!,
-                textAlign: messageTextAlign,
-                style: theme.bottomSheetMessageStyle,
+          ),
+          padding: theme.bottomSheetPadding,
+          child: Column(
+            crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
+            mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                    style: theme.bottomSheetTitleStyle,
+                  ),
+                  if (closeButton == true)
+                    IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: Icon(
+                        Icons.close_outlined,
+                        size: 22,
+                        color: theme.defaultIconColor,
+                      ),
+                    )
+                ],
               ),
-            if (body != null) body!,
-            const SizedBox(height: Spacing.x4),
-            if (primaryButtonText != null)
-              FButton(
-                primaryButtonText!,
-                expanded: true,
-                type: theme.bottomSheetPrimaryButtonType,
-                color: theme.bottomSheetPrimaryButtonColor,
-                onPressed: onPrimaryButtonTap,
-              ),
-            if (secondaryButtonText != null) const SizedBox(height: Spacing.x2),
-            if (secondaryButtonText != null)
-              FButton(
-                secondaryButtonText!,
-                expanded: true,
-                type: theme.bottomSheetSecondaryButtonType,
-                color: theme.bottomSheetSecondaryButtonColor,
-                onPressed: onSecondaryButtonTap,
-              ),
-          ],
+              const SizedBox(height: Spacing.x4),
+              if (message != null)
+                Text(
+                  message!,
+                  textAlign: messageTextAlign,
+                  style: theme.bottomSheetMessageStyle,
+                ),
+              if (body != null) body!,
+              const SizedBox(height: Spacing.x4),
+              if (primaryButtonText != null)
+                FButton(
+                  primaryButtonText!,
+                  expanded: true,
+                  type: theme.bottomSheetPrimaryButtonType,
+                  color: theme.bottomSheetPrimaryButtonColor,
+                  onPressed: onPrimaryButtonTap,
+                ),
+              if (secondaryButtonText != null)
+                const SizedBox(height: Spacing.x2),
+              if (secondaryButtonText != null)
+                FButton(
+                  secondaryButtonText!,
+                  expanded: true,
+                  type: theme.bottomSheetSecondaryButtonType,
+                  color: theme.bottomSheetSecondaryButtonColor,
+                  onPressed: onSecondaryButtonTap,
+                ),
+            ],
+          ),
         ),
       ),
     );

@@ -57,8 +57,9 @@ class _OnboardingState extends State<Onboarding> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(
+          Flexible(
             child: PageView.builder(
               controller: _controller.pageController,
               physics: _controller.physics,
