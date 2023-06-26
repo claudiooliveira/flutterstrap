@@ -173,9 +173,11 @@ class _FBottomSheetWidget<T> extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    title,
-                    style: theme.bottomSheetTitleStyle,
+                  Flexible(
+                    child: Text(
+                      title,
+                      style: theme.bottomSheetTitleStyle,
+                    ),
                   ),
                   if (closeButton == true)
                     IconButton(
@@ -275,9 +277,11 @@ class _FBottomSheetIconDialogWidget<T> extends StatelessWidget {
           children: [
             icon,
             const SizedBox(height: Spacing.x8),
-            Text(
-              title,
-              style: theme.bottomSheetTitleStyle,
+            Flexible(
+              child: Text(
+                title,
+                style: theme.bottomSheetTitleStyle,
+              ),
             ),
             const SizedBox(height: Spacing.x4),
             if (message != null)

@@ -238,7 +238,7 @@ class FButton extends StatelessWidget {
         ThemeColor.danger: _theme.dangerColor,
         ThemeColor.warning: _theme.warningColor,
         ThemeColor.info: _theme.infoColor,
-        ThemeColor.light: _theme.lightColor,
+        ThemeColor.light: _theme.lightTextColor,
         ThemeColor.dark: _theme.darkColor,
       };
     }
