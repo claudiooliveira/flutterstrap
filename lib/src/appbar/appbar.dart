@@ -31,7 +31,7 @@ class FAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: actions,
       title: _title,
       leading: leading,
-      backgroundColor: _backgroundColor,
+      backgroundColor: backgroundColor ?? _backgroundColor,
       elevation: style == FAppBarStyle.inverse ? 0 : elevation,
       iconTheme: style == FAppBarStyle.inverse
           ? IconThemeData(

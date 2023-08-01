@@ -36,6 +36,7 @@ class FTextField extends StatefulWidget {
     this.onTap,
     this.enabled,
     this.enableInteractiveSelection,
+    this.textInputAction,
   }) : super(key: key);
 
   final String? initialValue;
@@ -62,6 +63,7 @@ class FTextField extends StatefulWidget {
   Function()? onTap;
   bool? enabled;
   bool? enableInteractiveSelection;
+  TextInputAction? textInputAction;
 
   /// Use a [TextFieldValidator] to validate this field.
   /// -
@@ -102,6 +104,7 @@ class _FTextFieldState extends State<FTextField> {
           onTap: widget.onTap,
           enabled: widget.enabled,
           enableInteractiveSelection: widget.enableInteractiveSelection,
+          textInputAction: widget.textInputAction,
         ),
         if (_showBottomLabel && widget.bottomLabel != null)
           const SizedBox(height: 4),
@@ -402,6 +405,7 @@ extension FPasswordTextField on FTextField {
       onTap: onTap,
       enabled: enabled,
       enableInteractiveSelection: enableInteractiveSelection,
+      textInputAction: textInputAction,
     );
   }
 }
