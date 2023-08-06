@@ -3,6 +3,7 @@ library flutterstrap;
 export 'src/theme/theme.dart';
 export 'src/theme/theme_controller.dart';
 export 'src/spacing/spacing.dart';
+export 'src/button/button_text_format.dart';
 export 'src/button/button.dart';
 export 'src/button/icon_button.dart';
 export 'src/text/text.dart';
