@@ -101,7 +101,7 @@ class FButton extends StatelessWidget {
           ),
         if (prefixIcon != null) const SizedBox(width: Spacing.x2),
         Text(
-          text.toUpperCase(),
+          _text,
           style: TextStyle(
             fontSize: _textSize,
             color: _textColor,
