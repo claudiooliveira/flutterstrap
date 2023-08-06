@@ -2,6 +2,8 @@ import 'package:flutterstrap/src/spacing/spacing.dart';
 import 'package:flutterstrap/src/theme/theme.dart';
 import 'package:flutter/material.dart';
 
+import 'button_text_format.dart';
+
 enum FButtonType { text, outlined, contained, toggle }
 
 enum FButtonSize { small, standard, large }
@@ -23,6 +25,7 @@ class FButton extends StatelessWidget {
     this.loading = false,
     this.prefixIcon,
     this.suffixIcon,
+    this.textFormat,
   }) : super(key: key);
 
   final VoidCallback? onPressed;
@@ -34,6 +37,7 @@ class FButton extends StatelessWidget {
   final FButtonAlign align;
   final IconData? prefixIcon;
   final IconData? suffixIcon;
+  final ButtonTextFormat? textFormat;
   late FlutterstrapTheme _theme;
   final bool disabled;
   final bool loading;
@@ -113,6 +117,34 @@ class FButton extends StatelessWidget {
           ),
       ],
     );
+  }
+
+  String get _text {
+    ButtonTextFormat format = ButtonTextFormat.none;
+    if (textFormat != null) {
+      format = textFormat!;
+    } else if (_theme.buttonTextFormat != null) {
+      format = _theme.buttonTextFormat!;
+    }
+    switch (format) {
+      case ButtonTextFormat.none:
+        return text;
+      case ButtonTextFormat.lowercase:
+        return text.toLowerCase();
+      case ButtonTextFormat.uppercase:
+        return text.toUpperCase();
+      case ButtonTextFormat.capitalize:
+        return _capitalizeWords(text);
+    }
+  }
+
+  String _capitalizeWords(String input) {
+    return input.split(" ").map((word) {
+      if (word.isNotEmpty) {
+        return word[0].toUpperCase() + word.substring(1);
+      }
+      return '';
+    }).join(" ");
   }
 
   ButtonStyle get _style {

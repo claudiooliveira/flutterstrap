@@ -1,4 +1,5 @@
 import 'package:flutterstrap/src/button/button.dart';
+import 'package:flutterstrap/src/button/button_text_format.dart';
 import 'package:flutterstrap/src/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -85,6 +86,20 @@ abstract class FlutterstrapTheme {
   FontWeight get textBoldWeight;
 
   String? get textFontFamily;
+  String? get textH1FontFamily;
+  String? get textH2FontFamily;
+  String? get textH3FontFamily;
+  String? get textH4FontFamily;
+  String? get textH5FontFamily;
+  String? get textH6FontFamily;
+  String? get textSubtitle1FontFamily;
+  String? get textSubtitle2FontFamily;
+  String? get textBody1FontFamily;
+  String? get textBody2FontFamily;
+  String? get textCaptionFontFamily;
+  String? get textOverlineFontFamily;
+
+  ButtonTextFormat? get buttonTextFormat;
 
   Color get textStandardColor;
   Color get textLightColor;

@@ -90,7 +90,7 @@ class FText extends StatelessWidget {
 
   TextStyle get style {
     return TextStyle(
-      fontFamily: fontFamily ?? _theme.textFontFamily,
+      fontFamily: fontFamily ?? _fontFamily,
       fontWeight: bold ? _theme.textBoldWeight : _fontWeight,
       fontSize: _size,
       fontStyle: italic ? FontStyle.italic : FontStyle.normal,
@@ -135,6 +135,25 @@ class FText extends StatelessWidget {
     };
 
     return textVariantFontWeight[variant]!;
+  }
+
+  String? get _fontFamily {
+    Map<FTextVariant, String?> textFontFamilySize = {
+      FTextVariant.h1: _theme.textH1FontFamily,
+      FTextVariant.h2: _theme.textH2FontFamily,
+      FTextVariant.h3: _theme.textH3FontFamily,
+      FTextVariant.h4: _theme.textH4FontFamily,
+      FTextVariant.h5: _theme.textH5FontFamily,
+      FTextVariant.h6: _theme.textH6FontFamily,
+      FTextVariant.subtitle1: _theme.textSubtitle1FontFamily,
+      FTextVariant.subtitle2: _theme.textSubtitle2FontFamily,
+      FTextVariant.body1: _theme.textBody1FontFamily,
+      FTextVariant.body2: _theme.textBody2FontFamily,
+      FTextVariant.caption: _theme.textCaptionFontFamily,
+      FTextVariant.overline: _theme.textOverlineFontFamily,
+    };
+
+    return textFontFamilySize[variant] ?? _theme.textFontFamily;
   }
 }
 
