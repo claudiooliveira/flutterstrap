@@ -17,7 +17,7 @@ class FAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   final List<Widget>? actions;
   final Widget? title;
-  final IconButton? leading;
+  final Widget? leading;
   final Color? backgroundColor;
   final FAppBarStyle style;
   final double? elevation;
