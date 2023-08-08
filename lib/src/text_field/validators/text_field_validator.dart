@@ -20,7 +20,7 @@ abstract class TextFieldValidator {
     if (error != null) {
       return error;
     }
-    if (mandatory == true && (value?.isEmpty ?? true)) {
+    if (mandatory == true && (value?.replaceAll(' ', '').isEmpty ?? true)) {
       return emptyError ?? validationError;
     }
     if (((value?.length ?? 0) < (minLength ?? 0))) {
