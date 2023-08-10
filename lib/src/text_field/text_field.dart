@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutterstrap/flutterstrap.dart';
 import 'package:flutter/material.dart';
 
@@ -38,6 +39,7 @@ class FTextField extends StatefulWidget {
     this.enableInteractiveSelection,
     this.textInputAction,
     this.onChanged,
+    this.inputFormatters,
   }) : super(key: key);
 
   final String? initialValue;
@@ -65,6 +67,7 @@ class FTextField extends StatefulWidget {
   bool? enabled;
   bool? enableInteractiveSelection;
   TextInputAction? textInputAction;
+  List<TextInputFormatter>? inputFormatters;
   void Function(String)? onChanged;
 
   /// Use a [TextFieldValidator] to validate this field.
@@ -108,6 +111,7 @@ class _FTextFieldState extends State<FTextField> {
           enableInteractiveSelection: widget.enableInteractiveSelection,
           textInputAction: widget.textInputAction,
           onChanged: widget.onChanged,
+          inputFormatters: widget.inputFormatters,
         ),
         if (_showBottomLabel && widget.bottomLabel != null)
           const SizedBox(height: 4),
@@ -410,6 +414,7 @@ extension FPasswordTextField on FTextField {
       enableInteractiveSelection: enableInteractiveSelection,
       textInputAction: textInputAction,
       onChanged: onChanged,
+      inputFormatters: inputFormatters,
     );
   }
 }
