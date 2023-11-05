@@ -8,12 +8,14 @@ class FBottomSheet {
     String? message,
     Widget? body,
     TextAlign? messageTextAlign = TextAlign.center,
+    TextAlign? titleTextAlign = TextAlign.start,
     bool? closeButton = false,
     bool? isDismissible,
     String? primaryButtonText,
     VoidCallback? onPrimaryButtonTap,
     String? secondaryButtonText,
     VoidCallback? onSecondaryButtonTap,
+    bool? resizeToAvoidBottomInset = true,
     CrossAxisAlignment? crossAxisAlignment = CrossAxisAlignment.center,
     MainAxisAlignment? mainAxisAlignment = MainAxisAlignment.center,
   }) {
@@ -34,6 +36,8 @@ class FBottomSheet {
           crossAxisAlignment: crossAxisAlignment,
           mainAxisAlignment: mainAxisAlignment,
           messageTextAlign: messageTextAlign,
+          titleTextAlign: titleTextAlign,
+          resizeToAvoidBottomInset: resizeToAvoidBottomInset,
         );
       },
     );
@@ -45,6 +49,7 @@ class FBottomSheet {
     required Widget icon,
     String? message,
     TextAlign? messageTextAlign = TextAlign.center,
+    TextAlign? titleTextAlign = TextAlign.start,
     bool? closeButton = false,
     bool? isDismissible,
     String? primaryButtonText,
@@ -73,6 +78,7 @@ class FBottomSheet {
           crossAxisAlignment: crossAxisAlignment,
           mainAxisAlignment: mainAxisAlignment,
           messageTextAlign: messageTextAlign,
+          titleTextAlign: titleTextAlign,
         );
       },
     );
@@ -83,7 +89,9 @@ class FBottomSheet {
     required String title,
     Widget? body,
     TextAlign? messageTextAlign = TextAlign.center,
+    TextAlign? titleTextAlign = TextAlign.start,
     bool? closeButton = true,
+    bool? resizeToAvoidBottomInset = true,
     bool? isDismissible,
     String? primaryButtonText,
     VoidCallback? onPrimaryButtonTap,
@@ -110,6 +118,8 @@ class FBottomSheet {
           crossAxisAlignment: crossAxisAlignment,
           mainAxisAlignment: mainAxisAlignment,
           messageTextAlign: messageTextAlign,
+          titleTextAlign: messageTextAlign,
+          resizeToAvoidBottomInset: resizeToAvoidBottomInset,
         );
       },
     );
@@ -130,6 +140,8 @@ class _FBottomSheetWidget<T> extends StatelessWidget {
     this.crossAxisAlignment,
     this.mainAxisAlignment,
     this.messageTextAlign,
+    this.titleTextAlign,
+    this.resizeToAvoidBottomInset,
   }) : super(key: key);
 
   final String title;
@@ -143,13 +155,17 @@ class _FBottomSheetWidget<T> extends StatelessWidget {
   final CrossAxisAlignment? crossAxisAlignment;
   final MainAxisAlignment? mainAxisAlignment;
   final TextAlign? messageTextAlign;
+  final TextAlign? titleTextAlign;
+  final bool? resizeToAvoidBottomInset;
 
   @override
   Widget build(BuildContext context) {
     final theme = FlutterstrapTheme.of(context);
     return Padding(
       padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
+        bottom: resizeToAvoidBottomInset == true
+            ? MediaQuery.of(context).viewInsets.bottom
+            : 0,
       ),
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
@@ -176,6 +192,7 @@ class _FBottomSheetWidget<T> extends StatelessWidget {
                   Flexible(
                     child: Text(
                       title,
+                      textAlign: titleTextAlign,
                       style: theme.bottomSheetTitleStyle,
                     ),
                   ),
@@ -239,6 +256,7 @@ class _FBottomSheetIconDialogWidget<T> extends StatelessWidget {
     this.crossAxisAlignment,
     this.mainAxisAlignment,
     this.messageTextAlign,
+    this.titleTextAlign,
   }) : super(key: key);
 
   final String title;
@@ -252,6 +270,7 @@ class _FBottomSheetIconDialogWidget<T> extends StatelessWidget {
   final CrossAxisAlignment? crossAxisAlignment;
   final MainAxisAlignment? mainAxisAlignment;
   final TextAlign? messageTextAlign;
+  final TextAlign? titleTextAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -280,6 +299,7 @@ class _FBottomSheetIconDialogWidget<T> extends StatelessWidget {
             Flexible(
               child: Text(
                 title,
+                textAlign: titleTextAlign,
                 style: theme.bottomSheetTitleStyle,
               ),
             ),
