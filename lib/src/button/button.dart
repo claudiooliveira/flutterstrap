@@ -105,7 +105,8 @@ class FButton extends StatelessWidget {
           style: TextStyle(
             fontSize: _textSize,
             color: _textColor,
-            fontWeight: FontWeight.bold,
+            fontWeight: _theme.buttonFontWeight ?? FontWeight.bold,
+            fontFamily: _theme.buttonFontFamily,
           ),
         ),
         if (suffixIcon != null) const SizedBox(width: Spacing.x2),

@@ -56,6 +56,8 @@ abstract class FlutterstrapTheme {
   double get buttonSmallIconSize;
   Color get buttonDisabledColor;
   Color get buttonDisabledTextColor;
+  String? get buttonFontFamily;
+  FontWeight? get buttonFontWeight;
 
   //Text
   double get textH1Size;
