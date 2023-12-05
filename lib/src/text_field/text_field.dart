@@ -170,7 +170,7 @@ class _FTextFieldState extends State<FTextField> {
       suffixIcon: _suffixIcon,
       suffixIconColor: _getColor,
       contentPadding: _theme.textInputContentPadding,
-      errorStyle: _errorlTextStyle,
+      errorStyle: _errorTextStyle,
       errorBorder: _errorBorder,
       floatingLabelStyle: TextStyle(
         fontSize: _theme.labelTextSize,
@@ -378,7 +378,7 @@ class _FTextFieldState extends State<FTextField> {
     );
   }
 
-  TextStyle? get _errorlTextStyle {
+  TextStyle? get _errorTextStyle {
     return TextStyle(
       fontSize: _theme.textInputErrorFontSize,
       fontWeight: _theme.textInputErrorFontWeight,

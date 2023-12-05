@@ -137,6 +137,7 @@ abstract class FlutterstrapTheme {
   String? get textInputErrorFontFamily;
   Color? get textInputColor;
   Color get textInputErrorColor;
+  Color? get textInputErrorFillColor;
   EdgeInsets? get textInputContentPadding;
 
   // Bottom sheet

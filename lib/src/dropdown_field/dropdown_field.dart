@@ -12,7 +12,7 @@ class FDropdownFieldItem<T> {
 }
 
 // ignore: must_be_immutable
-class FDropdownField extends StatelessWidget {
+class FDropdownField extends StatefulWidget {
   FDropdownField({
     Key? key,
     required this.items,
@@ -20,6 +20,8 @@ class FDropdownField extends StatelessWidget {
     this.selectedValue,
     this.hintText,
     this.labelText,
+    this.validator,
+    this.textFieldValidator,
   }) : super(key: key);
 
   final List<FDropdownFieldItem> items;
@@ -27,7 +29,14 @@ class FDropdownField extends StatelessWidget {
   final void Function(dynamic)? onChanged;
   final String? hintText;
   final String? labelText;
+  final String? Function(dynamic)? validator;
+  final TextFieldValidator? textFieldValidator;
 
+  @override
+  State<FDropdownField> createState() => _FDropdownFieldState();
+}
+
+class _FDropdownFieldState extends State<FDropdownField> {
   late FlutterstrapTheme _theme;
 
   @override
@@ -37,8 +46,8 @@ class FDropdownField extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (labelText != null) _fixedLabelText,
-        if (labelText != null) const SizedBox(height: Spacing.x1),
+        if (widget.labelText != null) _fixedLabelText,
+        if (widget.labelText != null) const SizedBox(height: Spacing.x1),
         DropdownButtonHideUnderline(
           child: DropdownButtonFormField<dynamic>(
             decoration: InputDecoration(
@@ -57,21 +66,23 @@ class FDropdownField extends StatelessWidget {
                 ),
                 borderRadius: _theme.textInputBorderRadius,
               ),
+              errorStyle: _errorTextStyle,
             ),
-            hint: hintText == null
+            validator: _validator,
+            hint: widget.hintText == null
                 ? null
                 : FText(
-                    hintText!,
+                    widget.hintText!,
                     color: _theme.hintTextColor,
                   ),
-            items: items.map((FDropdownFieldItem item) {
+            items: widget.items.map((FDropdownFieldItem item) {
               return DropdownMenuItem<dynamic>(
                 value: item.value,
                 child: FText(item.text),
               );
             }).toList(),
-            onChanged: onChanged,
-            value: selectedValue,
+            onChanged: widget.onChanged,
+            value: widget.selectedValue,
           ),
         ),
       ],
@@ -80,7 +91,7 @@ class FDropdownField extends StatelessWidget {
 
   Widget get _fixedLabelText {
     return Text(
-      labelText!,
+      widget.labelText!,
       style: TextStyle(
         fontSize: _theme.fixedLabelTextSize,
         fontWeight: _theme.fixedLabelTextFontWeight,
@@ -88,5 +99,24 @@ class FDropdownField extends StatelessWidget {
         color: _theme.fixedLabelTextColor,
       ),
     );
+  }
+
+  TextStyle? get _errorTextStyle {
+    return TextStyle(
+      fontSize: _theme.textInputErrorFontSize,
+      fontWeight: _theme.textInputErrorFontWeight,
+      fontFamily: _theme.textInputErrorFontFamily,
+      color: _theme.textInputErrorColor,
+    );
+  }
+
+  String? _validator(dynamic value) {
+    String? message;
+    if (widget.validator != null) {
+      message = widget.validator!.call(value);
+    } else if (widget.textFieldValidator != null) {
+      message = widget.textFieldValidator!.validate(value);
+    }
+    return message;
   }
 }
