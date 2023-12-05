@@ -42,8 +42,10 @@ class OnboardingInternalController {
   void onPageChanged(int index) {
     _currentPage = index;
     _controller?.pageChanged?.call(index);
-    stopTimer();
-    _initializeTimer();
+    if (_autoplay) {
+      stopTimer();
+      _initializeTimer();
+    }
   }
 
   void initialize() {
