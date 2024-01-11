@@ -249,14 +249,14 @@ class FButton extends StatelessWidget {
 
   Color get _textColor {
     Map<ThemeColor, Color> textColor = {
-      ThemeColor.primary: _theme.primaryTextColor,
-      ThemeColor.secondary: _theme.secondaryTextColor,
-      ThemeColor.success: _theme.successTextColor,
-      ThemeColor.danger: _theme.dangerTextColor,
-      ThemeColor.warning: _theme.warningTextColor,
-      ThemeColor.info: _theme.infoTextColor,
-      ThemeColor.light: _theme.lightTextColor,
-      ThemeColor.dark: _theme.darkTextColor,
+      ThemeColor.primary: _theme.primaryButtonTextColor,
+      ThemeColor.secondary: _theme.secondaryButtonTextColor,
+      ThemeColor.success: _theme.successButtonTextColor,
+      ThemeColor.danger: _theme.dangerButtonTextColor,
+      ThemeColor.warning: _theme.warningButtonTextColor,
+      ThemeColor.info: _theme.infoButtonTextColor,
+      ThemeColor.light: _theme.lightButtonTextColor,
+      ThemeColor.dark: _theme.darkButtonTextColor,
     };
 
     if (disabled) {

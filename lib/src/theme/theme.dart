@@ -34,6 +34,15 @@ abstract class FlutterstrapTheme {
   Color get lightTextColor;
   Color get darkTextColor;
 
+  Color get primaryButtonTextColor;
+  Color get secondaryButtonTextColor;
+  Color get successButtonTextColor;
+  Color get dangerButtonTextColor;
+  Color get warningButtonTextColor;
+  Color get infoButtonTextColor;
+  Color get lightButtonTextColor;
+  Color get darkButtonTextColor;
+
   Color get backgroundColor;
 
   //AppBar
