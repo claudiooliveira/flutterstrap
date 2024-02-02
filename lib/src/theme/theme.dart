@@ -14,7 +14,9 @@ enum ThemeColor {
   dark,
 }
 
-abstract class FlutterstrapTheme {
+abstract class FlutterstrapTheme<FlutterstrapDefaultColorScheme> {
+  FlutterstrapDefaultColorScheme get colorScheme;
+
   //Colors
   Color get primaryColor;
   Color get secondaryColor;
@@ -169,8 +171,10 @@ abstract class FlutterstrapTheme {
   EdgeInsetsGeometry? get cardMargin;
   EdgeInsetsGeometry? get cardPadding;
 
-  static FlutterstrapTheme of(BuildContext context) {
-    return FlutterstrapThemeProvider.of(context).controller.theme;
+  static FlutterstrapTheme<FlutterstrapDefaultColorScheme>
+      of<FlutterstrapDefaultColorScheme>(BuildContext context) {
+    return FlutterstrapThemeProvider.of(context).controller.theme
+        as FlutterstrapTheme<FlutterstrapDefaultColorScheme>;
   }
 }
 
@@ -182,7 +186,8 @@ class FlutterstrapThemeProvider extends InheritedWidget {
 
   FThemeController controller;
 
-  static FlutterstrapThemeProvider of(BuildContext context) =>
+  static FlutterstrapThemeProvider of<FlutterstrapDefaultColorScheme>(
+          BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<FlutterstrapThemeProvider>()!;
 
   @override
