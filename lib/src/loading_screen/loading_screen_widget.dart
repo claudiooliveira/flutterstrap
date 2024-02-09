@@ -8,11 +8,13 @@ class FLoadingScreenWidget extends StatelessWidget {
     required this.child,
     this.backgroundColor,
     this.strokeWidth,
+    this.loadingWidget,
   }) : super(key: key);
 
   final bool isLoading;
   final Color? backgroundColor;
   final double? strokeWidth;
+  final Widget? loadingWidget;
   final Widget child;
 
   @override
@@ -31,14 +33,15 @@ class FLoadingScreenWidget extends StatelessWidget {
                 color: backgroundColor ?? Colors.white.withOpacity(0.7),
               ),
               child: Center(
-                child: SizedBox(
-                  width: 42,
-                  height: 42,
-                  child: CircularProgressIndicator(
-                    strokeWidth: strokeWidth ?? 5,
-                    color: theme.primaryColor,
-                  ),
-                ),
+                child: loadingWidget ??
+                    SizedBox(
+                      width: 42,
+                      height: 42,
+                      child: CircularProgressIndicator(
+                        strokeWidth: strokeWidth ?? 5,
+                        color: theme.primaryColor,
+                      ),
+                    ),
               ),
             ),
           ),
