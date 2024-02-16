@@ -1,5 +1,6 @@
 import 'package:flutterstrap/src/button/button.dart';
 import 'package:flutterstrap/src/button/button_text_format.dart';
+import 'package:flutterstrap/src/theme/color_scheme.dart';
 import 'package:flutterstrap/src/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,13 @@ enum ThemeColor {
 abstract class FlutterstrapTheme<FlutterstrapColorScheme> {
   FlutterstrapColorScheme get colorScheme;
 
-  //Colors
+  // Border Radius
+
+  BorderRadiusGeometry? get smallBorderRadius => null;
+  BorderRadiusGeometry? get mediumBorderRadius => null;
+  BorderRadiusGeometry? get bigBorderRadius => null;
+
+  // Colors
   Color get primaryColor;
   Color get secondaryColor;
   Color get successColor;

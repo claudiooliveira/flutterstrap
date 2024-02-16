@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutterstrap/flutterstrap.dart';
 
+enum FBottomSheetButtonOrientation { vertical, horizontal }
+
 class FBottomSheet {
   static Future<T?> show<T>({
     required BuildContext context,
@@ -12,12 +14,16 @@ class FBottomSheet {
     bool? closeButton = false,
     bool? isDismissible,
     String? primaryButtonText,
+    FButtonType? primaryButtonType,
     VoidCallback? onPrimaryButtonTap,
     String? secondaryButtonText,
+    FButtonType? secondaryButtonType,
     VoidCallback? onSecondaryButtonTap,
     bool? resizeToAvoidBottomInset = true,
     CrossAxisAlignment? crossAxisAlignment = CrossAxisAlignment.center,
     MainAxisAlignment? mainAxisAlignment = MainAxisAlignment.center,
+    FBottomSheetButtonOrientation buttonsOrientation =
+        FBottomSheetButtonOrientation.vertical,
   }) {
     return showModalBottomSheet<T>(
       context: context,
@@ -38,6 +44,9 @@ class FBottomSheet {
           messageTextAlign: messageTextAlign,
           titleTextAlign: titleTextAlign,
           resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+          primaryButtonType: primaryButtonType,
+          secondaryButtonType: secondaryButtonType,
+          buttonsOrientation: buttonsOrientation,
         );
       },
     );
@@ -56,6 +65,8 @@ class FBottomSheet {
     VoidCallback? onPrimaryButtonTap,
     String? secondaryButtonText,
     VoidCallback? onSecondaryButtonTap,
+    FButtonType? primaryButtonType,
+    FButtonType? secondaryButtonType,
     CrossAxisAlignment? crossAxisAlignment = CrossAxisAlignment.center,
     MainAxisAlignment? mainAxisAlignment = MainAxisAlignment.start,
     bool isScrollControlled = true,
@@ -79,6 +90,8 @@ class FBottomSheet {
           mainAxisAlignment: mainAxisAlignment,
           messageTextAlign: messageTextAlign,
           titleTextAlign: titleTextAlign,
+          primaryButtonType: primaryButtonType,
+          secondaryButtonType: secondaryButtonType,
         );
       },
     );
@@ -142,6 +155,9 @@ class _FBottomSheetWidget<T> extends StatelessWidget {
     this.messageTextAlign,
     this.titleTextAlign,
     this.resizeToAvoidBottomInset,
+    this.primaryButtonType,
+    this.secondaryButtonType,
+    this.buttonsOrientation = FBottomSheetButtonOrientation.vertical,
   }) : super(key: key);
 
   final String title;
@@ -157,6 +173,9 @@ class _FBottomSheetWidget<T> extends StatelessWidget {
   final TextAlign? messageTextAlign;
   final TextAlign? titleTextAlign;
   final bool? resizeToAvoidBottomInset;
+  final FButtonType? primaryButtonType;
+  final FButtonType? secondaryButtonType;
+  final FBottomSheetButtonOrientation buttonsOrientation;
 
   @override
   Widget build(BuildContext context) {
@@ -216,24 +235,66 @@ class _FBottomSheetWidget<T> extends StatelessWidget {
                 ),
               if (body != null) body!,
               const SizedBox(height: Spacing.x4),
-              if (primaryButtonText != null)
-                FButton(
-                  primaryButtonText!,
-                  expanded: true,
-                  type: theme.bottomSheetPrimaryButtonType,
-                  color: theme.bottomSheetPrimaryButtonColor,
-                  onPressed: onPrimaryButtonTap,
-                ),
-              if (secondaryButtonText != null)
-                const SizedBox(height: Spacing.x2),
-              if (secondaryButtonText != null)
-                FButton(
-                  secondaryButtonText!,
-                  expanded: true,
-                  type: theme.bottomSheetSecondaryButtonType,
-                  color: theme.bottomSheetSecondaryButtonColor,
-                  onPressed: onSecondaryButtonTap,
-                ),
+              Builder(
+                builder: ((context) {
+                  if (buttonsOrientation ==
+                      FBottomSheetButtonOrientation.vertical) {
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (primaryButtonText != null)
+                          FButton(
+                            primaryButtonText!,
+                            expanded: true,
+                            type: primaryButtonType ??
+                                theme.bottomSheetPrimaryButtonType,
+                            color: theme.bottomSheetPrimaryButtonColor,
+                            onPressed: onPrimaryButtonTap,
+                          ),
+                        if (secondaryButtonText != null)
+                          const SizedBox(height: Spacing.x2),
+                        if (secondaryButtonText != null)
+                          FButton(
+                            secondaryButtonText!,
+                            expanded: true,
+                            type: secondaryButtonType ??
+                                theme.bottomSheetSecondaryButtonType,
+                            color: theme.bottomSheetSecondaryButtonColor,
+                            onPressed: onSecondaryButtonTap,
+                          ),
+                      ],
+                    );
+                  }
+                  return Row(
+                    children: [
+                      if (secondaryButtonText != null)
+                        Expanded(
+                          child: FButton(
+                            secondaryButtonText!,
+                            expanded: true,
+                            type: secondaryButtonType ??
+                                theme.bottomSheetSecondaryButtonType,
+                            color: theme.bottomSheetSecondaryButtonColor,
+                            onPressed: onSecondaryButtonTap,
+                          ),
+                        ),
+                      if (primaryButtonText != null)
+                        const SizedBox(width: Spacing.x2),
+                      if (primaryButtonText != null)
+                        Expanded(
+                          child: FButton(
+                            primaryButtonText!,
+                            expanded: true,
+                            type: primaryButtonType ??
+                                theme.bottomSheetPrimaryButtonType,
+                            color: theme.bottomSheetPrimaryButtonColor,
+                            onPressed: onPrimaryButtonTap,
+                          ),
+                        ),
+                    ],
+                  );
+                }),
+              ),
             ],
           ),
         ),
@@ -257,6 +318,8 @@ class _FBottomSheetIconDialogWidget<T> extends StatelessWidget {
     this.mainAxisAlignment,
     this.messageTextAlign,
     this.titleTextAlign,
+    this.primaryButtonType,
+    this.secondaryButtonType,
   }) : super(key: key);
 
   final String title;
@@ -271,6 +334,8 @@ class _FBottomSheetIconDialogWidget<T> extends StatelessWidget {
   final MainAxisAlignment? mainAxisAlignment;
   final TextAlign? messageTextAlign;
   final TextAlign? titleTextAlign;
+  final FButtonType? primaryButtonType;
+  final FButtonType? secondaryButtonType;
 
   @override
   Widget build(BuildContext context) {
@@ -315,7 +380,7 @@ class _FBottomSheetIconDialogWidget<T> extends StatelessWidget {
               FButton(
                 primaryButtonText!,
                 expanded: true,
-                type: theme.bottomSheetPrimaryButtonType,
+                type: primaryButtonType ?? theme.bottomSheetPrimaryButtonType,
                 color: theme.bottomSheetPrimaryButtonColor,
                 onPressed: onPrimaryButtonTap,
               ),
@@ -324,7 +389,8 @@ class _FBottomSheetIconDialogWidget<T> extends StatelessWidget {
               FButton(
                 secondaryButtonText!,
                 expanded: true,
-                type: theme.bottomSheetSecondaryButtonType,
+                type:
+                    secondaryButtonType ?? theme.bottomSheetSecondaryButtonType,
                 color: theme.bottomSheetSecondaryButtonColor,
                 onPressed: onSecondaryButtonTap,
               ),

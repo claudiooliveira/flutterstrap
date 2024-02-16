@@ -20,3 +20,4 @@ export 'src/onboarding/onboarding_controller.dart';
 export 'src/dropdown_field/dropdown_field.dart';
 export 'src/loading_screen/loading_screen_widget.dart';
 export 'src/theme/color_scheme.dart';
+export 'src/alert/alert.dart';

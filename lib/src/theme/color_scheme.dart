@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 ///
 /// Generate your own color scheme:
-/// http://mcg.mbitson.com/#!?mcgpalette0=%23f781a4#%2F
+/// http://mcg.mbitson.com/
 ///
 
 abstract class FlutterstrapColorScheme {
