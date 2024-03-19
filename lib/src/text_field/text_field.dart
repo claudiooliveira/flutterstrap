@@ -40,6 +40,8 @@ class FTextField extends StatefulWidget {
     this.textInputAction,
     this.onChanged,
     this.inputFormatters,
+    this.mandatory,
+    this.mandatoryText = '*',
   }) : super(key: key);
 
   final String? initialValue;
@@ -69,6 +71,8 @@ class FTextField extends StatefulWidget {
   TextInputAction? textInputAction;
   List<TextInputFormatter>? inputFormatters;
   void Function(String)? onChanged;
+  bool? mandatory;
+  String? mandatoryText;
 
   /// Use a [TextFieldValidator] to validate this field.
   /// -
@@ -143,13 +147,27 @@ class _FTextFieldState extends State<FTextField> {
       widget.labelType == FTextFieldLabelType.fixedAtTop;
 
   Widget get _fixedLabelText {
-    return Text(
-      widget.labelText!,
-      style: TextStyle(
-        fontSize: _theme.fixedLabelTextSize,
-        fontWeight: _theme.fixedLabelTextFontWeight,
-        fontFamily: _theme.fixedLabelTextFontFamily,
-        color: _theme.fixedLabelTextColor,
+    return RichText(
+      text: TextSpan(
+        text: widget.labelText!,
+        style: TextStyle(
+          fontSize: _theme.fixedLabelTextSize,
+          fontWeight: _theme.fixedLabelTextFontWeight,
+          fontFamily: _theme.fixedLabelTextFontFamily,
+          color: _theme.fixedLabelTextColor,
+        ),
+        children: [
+          if (widget.mandatory == true)
+            TextSpan(
+              text: widget.mandatoryText,
+              style: TextStyle(
+                fontSize: _theme.fixedLabelTextSize,
+                fontWeight: _theme.fixedLabelTextFontWeight,
+                fontFamily: _theme.fixedLabelTextFontFamily,
+                color: _theme.dangerColor,
+              ),
+            ),
+        ],
       ),
     );
   }
