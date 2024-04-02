@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutterstrap/flutterstrap.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +34,7 @@ class FText extends StatelessWidget {
     this.textAlign,
     this.overflow,
     this.maxLines,
+    this.onTapLink,
   }) : super(key: key);
 
   final String text;
@@ -44,6 +46,7 @@ class FText extends StatelessWidget {
   final TextAlign? textAlign;
   final TextOverflow? overflow;
   final int? maxLines;
+  final Map<String, VoidCallback>? onTapLink;
   late FlutterstrapTheme _theme;
 
   @override
@@ -75,6 +78,7 @@ class FText extends StatelessWidget {
     TextAlign? textAlign,
     TextOverflow? overflow,
     int? maxLines,
+    Map<String, VoidCallback>? onTapLink,
   }) {
     return _FTextStyled(
       text,
@@ -85,6 +89,7 @@ class FText extends StatelessWidget {
       textAlign: textAlign,
       overflow: overflow,
       maxLines: maxLines,
+      onTapLink: onTapLink,
     );
   }
 
@@ -168,6 +173,7 @@ class _FTextStyled extends FText with _FStyledTextMixin {
     super.textAlign,
     super.overflow,
     super.maxLines,
+    super.onTapLink,
   });
 }
 
@@ -180,6 +186,15 @@ mixin _FStyledTextMixin on FText {
 
   String _styledText(Match match) =>
       _firstMatch(match).replaceAll(RegExp(r'<[^>]*>'), '');
+
+  bool _checkTagLink(String match) =>
+      RegExp(r"<a\s.*?>.*?</a>").hasMatch(match);
+
+  String? _linkId(String match) =>
+      RegExp(r"id='([^']*)'").firstMatch(match)?.group(1);
+
+  String breakLines(String text) =>
+      text.replaceAll(RegExp(r'<\/?(BR|br)\/?>'), '\n');
 
   Color? _colorFromText(String text) {
     final pattern =
@@ -201,14 +216,28 @@ mixin _FStyledTextMixin on FText {
       pattern,
       onMatch: (match) {
         final isBold = _checkTag(_firstMatch(match), 'b');
-        final isUnderline = _checkTag(_firstMatch(match), 'u');
+        bool isUnderline = _checkTag(_firstMatch(match), 'u');
         final isItalic = _checkTag(_firstMatch(match), 'i');
         final withColor = _checkTag(_firstMatch(match), 'font') &&
             _firstMatch(match).contains("<font color");
 
+        final isLink = _checkTagLink(_firstMatch(match));
+        final linkId = _linkId(_firstMatch(match));
+
+        GestureRecognizer? recognizer;
+
+        if (isLink &&
+            onTapLink != null &&
+            linkId != null &&
+            onTapLink![linkId] != null) {
+          recognizer = TapGestureRecognizer()..onTap = onTapLink![linkId];
+          isUnderline = true;
+        }
+
         children.add(
           TextSpan(
             text: _styledText(match),
+            recognizer: recognizer,
             style: TextStyle(
               fontFamily: fontFamily ?? _theme.textFontFamily,
               fontWeight: isBold ? _theme.textBoldWeight : _fontWeight,
