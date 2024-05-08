@@ -244,6 +244,10 @@ class _FTextFieldState extends State<FTextField> {
   Widget? get _suffixIcon {
     IconData? icon = widget.suffixIcon;
 
+    if (icon == null) {
+      return null;
+    }
+
     if (_isPasswordField) {
       icon = _visiblePassword ? Icons.visibility_off : Icons.visibility;
     }
