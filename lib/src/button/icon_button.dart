@@ -38,7 +38,7 @@ class FIconButton extends StatelessWidget {
           key: key,
           onPressed: disabled || loading ? null : onPressed,
           style: OutlinedButton.styleFrom(
-            primary: _borderColor,
+            //primary: _borderColor,
             backgroundColor: _backgroundColor,
             padding: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
