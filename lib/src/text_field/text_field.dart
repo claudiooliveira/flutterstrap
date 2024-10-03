@@ -105,38 +105,44 @@ class _FTextFieldState extends State<FTextField> {
           focusNode: widget.focusNode,
           initialValue: widget.initialValue,
           controller: widget.controller,
-          decoration: widget.decoration?.copyWith(
-            hintText: widget.decoration?.hintText ?? _decoration?.hintText,
-            hintStyle: widget.decoration?.hintStyle ?? _decoration?.hintStyle,
-            labelText: widget.decoration?.labelText ?? _decoration?.labelText,
-            labelStyle:
-                widget.decoration?.labelStyle ?? _decoration?.labelStyle,
-            filled: widget.decoration?.filled ?? _decoration?.filled,
-            fillColor: widget.decoration?.fillColor ?? _decoration?.fillColor,
-            border: widget.decoration?.border ?? _decoration?.border,
-            enabledBorder:
-                widget.decoration?.enabledBorder ?? _decoration?.enabledBorder,
-            focusedBorder:
-                widget.decoration?.focusedBorder ?? _decoration?.focusedBorder,
-            prefixIcon:
-                widget.decoration?.prefixIcon ?? _decoration?.prefixIcon,
-            prefixIconColor: widget.decoration?.prefixIconColor ??
-                _decoration?.prefixIconColor,
-            suffixIcon:
-                widget.decoration?.suffixIcon ?? _decoration?.suffixIcon,
-            suffixIconColor: widget.decoration?.suffixIconColor ??
-                _decoration?.suffixIconColor,
-            contentPadding: widget.decoration?.contentPadding ??
-                _decoration?.contentPadding,
-            errorStyle:
-                widget.decoration?.errorStyle ?? _decoration?.errorStyle,
-            errorBorder:
-                widget.decoration?.errorBorder ?? _decoration?.errorBorder,
-            floatingLabelStyle: widget.decoration?.floatingLabelStyle ??
-                _decoration?.floatingLabelStyle,
-            errorMaxLines:
-                widget.decoration?.errorMaxLines ?? _decoration?.errorMaxLines,
-          ),
+          decoration: widget.decoration == null
+              ? _decoration
+              : widget.decoration?.copyWith(
+                  hintText:
+                      widget.decoration?.hintText ?? _decoration?.hintText,
+                  hintStyle:
+                      widget.decoration?.hintStyle ?? _decoration?.hintStyle,
+                  labelText:
+                      widget.decoration?.labelText ?? _decoration?.labelText,
+                  labelStyle:
+                      widget.decoration?.labelStyle ?? _decoration?.labelStyle,
+                  filled: widget.decoration?.filled ?? _decoration?.filled,
+                  fillColor:
+                      widget.decoration?.fillColor ?? _decoration?.fillColor,
+                  border: widget.decoration?.border ?? _decoration?.border,
+                  enabledBorder: widget.decoration?.enabledBorder ??
+                      _decoration?.enabledBorder,
+                  focusedBorder: widget.decoration?.focusedBorder ??
+                      _decoration?.focusedBorder,
+                  prefixIcon:
+                      widget.decoration?.prefixIcon ?? _decoration?.prefixIcon,
+                  prefixIconColor: widget.decoration?.prefixIconColor ??
+                      _decoration?.prefixIconColor,
+                  suffixIcon:
+                      widget.decoration?.suffixIcon ?? _decoration?.suffixIcon,
+                  suffixIconColor: widget.decoration?.suffixIconColor ??
+                      _decoration?.suffixIconColor,
+                  contentPadding: widget.decoration?.contentPadding ??
+                      _decoration?.contentPadding,
+                  errorStyle:
+                      widget.decoration?.errorStyle ?? _decoration?.errorStyle,
+                  errorBorder: widget.decoration?.errorBorder ??
+                      _decoration?.errorBorder,
+                  floatingLabelStyle: widget.decoration?.floatingLabelStyle ??
+                      _decoration?.floatingLabelStyle,
+                  errorMaxLines: widget.decoration?.errorMaxLines ??
+                      _decoration?.errorMaxLines,
+                ),
           obscureText: _obscureText,
           style: _textStyle,
           validator: _validator,
@@ -153,7 +159,7 @@ class _FTextFieldState extends State<FTextField> {
         if (_showBottomLabel && widget.bottomLabel != null)
           const SizedBox(height: 4),
         if (_showBottomLabel && widget.bottomLabel != null)
-          FText(widget.bottomLabel!, variant: FTextVariant.caption),
+          FText.styled(widget.bottomLabel!, variant: FTextVariant.caption),
       ],
     );
   }
@@ -277,13 +283,14 @@ class _FTextFieldState extends State<FTextField> {
   Widget? get _suffixIcon {
     IconData? icon = widget.suffixIcon;
 
+    if (_isPasswordField) {
+      icon = _visiblePassword ? Icons.visibility_off : Icons.visibility;
+    }
+
     if (icon == null) {
       return null;
     }
 
-    if (_isPasswordField) {
-      icon = _visiblePassword ? Icons.visibility_off : Icons.visibility;
-    }
     return Padding(
       padding: const EdgeInsets.only(right: Spacing.x1),
       child: ClipOval(
